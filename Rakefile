@@ -33,7 +33,7 @@ Fezzik.destination :prod do
   env :port, 9003
   env :db_host, "localhost"
   env :db_user, "team254"
-  env :db_password, "correcthorsebatterystaple"
+  env :db_password, "complementingnotmixing"
   env :db_database, "cheesy_action_items"
-  env :wordpress_auth_url, ""
+  env :wordpress_auth_url, "http://www.team254.com/auth/"
 end
