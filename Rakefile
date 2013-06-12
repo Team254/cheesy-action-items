@@ -1,4 +1,4 @@
-# Copyright 2012 Team 254. All Rights Reserved.
+# Copyright 2013 Team 254. All Rights Reserved.
 # @author pat@patfairbank.com (Patrick Fairbank)
 #
 # Contains maintenance and deployment configuration.
@@ -29,14 +29,11 @@ set :user, "ubuntu"
 
 Fezzik.destination :prod do
   # Fill in parameters for deployment host, database and e-mail account here.
-  set :domain, "#{user}@items.team254.com"
-  env :port, 9000
+  set :domain, "#{user}@action-items.team254.com"
+  env :port, 9003
   env :db_host, "localhost"
   env :db_user, "team254"
   env :db_password, "correcthorsebatterystaple"
-  env :db_database, "cheesy_parts"
-  env :url, "http://items.team254.com"
-  env :gmail_user, "cheesyparts@gmail.com"
-  env :gmail_password, "correcthorsebatterystaple"
+  env :db_database, "cheesy_action_items"
   env :wordpress_auth_url, ""
 end
