@@ -5,11 +5,11 @@ Sequel.migration do
             Text :title, :null => false
             Text :deliverables, :null => false
             Integer :user_id, :null => false
-            Date :start_date, null => false
-            Date :due_date, null => false
+            Date :start_date, :null => false
+            Date :due_date, :null => false
             Date :completion_date
             Float :grade
-            Text :mentor, null => false
+            Text :mentor, :null => false
         end
     end
 end
