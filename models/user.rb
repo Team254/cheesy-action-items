@@ -6,6 +6,7 @@
 require "json"
 
 class User < Sequel::Model
+  many_to_many :action_items
   unrestrict_primary_key
 
   def wordpress_fields
