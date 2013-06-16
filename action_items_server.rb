@@ -28,6 +28,7 @@ module CheesyActionItems
     end
 
     def authenticate!
+      # Need to comment this out to make it work locally?
       redirect "/login?redirect=#{request.path}" if @user.nil?
     end
 
@@ -55,7 +56,35 @@ module CheesyActionItems
     end
 
     get "/" do
-      "This page intentionally left blank, #{@user.name}."
+      redirect "/action_items"
     end
+
+    get "/action_items" do
+      erb :action_items
+      #"This page intentionally left blank, #{@user.name}."
+    end
+
+    get "/action_item/:id" do
+      @action_item = Action_Item[params[:id]]
+      halt(400, "Invalid action item,") if @action_item.nil?
+      erb :action_item
+    end
+
+    get "/new_action_item" do
+      erb :new_action_item
+    end
+
+
+    post "/action_items" do
+      halt(400, "Missing title.") if params[:title].nil?
+      halt(400, "Missing deliverables.") if params[:deliverables].nil?
+      halt(400, "Missing leaders.") if params[:leaders].nil?
+      halt(400, "Missing due date.") if params[:due_date].nil?
+      halt(400, "Missing mentors.") if params[:mentor].nil?
+      action_item = Action_Item.create(:title => params[:title], :deliverables => params[:deliverables],
+                :leaders => params[:leaders], :due_date => params[:due_date], :mentor => params[:mentor])
+      redirect "/action_items/#{action_item.id}"
+    end
+
   end
 end
