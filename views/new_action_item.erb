@@ -1,0 +1,24 @@
+<%= erb :header %>
+
+<div class="container">
+  <h2>Create new action item</h2>
+  <form action="/action_items" method="POST">
+    <label>Title</label>
+    <input type="text" name="title" />
+    <label>Deliverables</label>
+    <textarea name="deliverables" />
+  </textarea>
+    <label>Leaders</label>
+    <input type="text" name="leaders" />
+    <label>Due date</label>
+    <input type="text" name="due_date" />
+    <label>Mentor</label>
+    <input type="text" name="mentor" />
+    <label>
+
+      <input type="submit" class="btn btn-success btn-medium" value="Create action item">
+    </label>
+  </form>
+</div>
+
+<%= erb :footer %>
