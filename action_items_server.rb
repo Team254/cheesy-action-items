@@ -29,7 +29,7 @@ module CheesyActionItems
 
     def authenticate!
       # Need to comment this out to make it work locally?
-      redirect "/login?redirect=#{request.path}" if @user.nil?
+      #redirect "/login?redirect=#{request.path}" if @user.nil?
     end
 
     get "/login" do
@@ -66,8 +66,30 @@ module CheesyActionItems
 
     get "/action_item/:id" do
       @action_item = Action_Item[params[:id]]
-      halt(400, "Invalid action item,") if @action_item.nil?
+      halt(400, "Invalid action item.") if @action_item.nil?
       erb :action_item
+    end
+
+    get "/action_item/:id/edit" do
+      @action_item = Action_Item[params[:id]]
+      halt(400, "Invalid action item,") if @action_item.nil?
+      erb :edit_action_item
+    end
+
+    post "/action_item/:id/edit" do
+      @action_item = Action_Item[params[:id]]
+      halt(400, "Invalid action item.") if @action_item.nil?
+
+      @action_item.title = params[:title] if params[:title]
+      @action_item.deliverables = params[:deliverables] if params[:deliverables]
+      # don't think this works: @action_item.leaders = params[:leaders] if params[:leaders]
+      @action_item.start_date = params[:start_date] if params[:start_date]
+      @action_item.due_date = params[:due_date] if params[:due_date]
+      @action_item.completion_date = params[:completion_date] if params[:completion_date]
+      @action_item.grade = params[:grade] if params[:grade]
+      @action_item.mentor = params[:mentor] if params[:mentor]
+      @action_item.save
+      redirect "/action_item/#{params[:id]}"
     end
 
     get "/new_action_item" do
@@ -83,7 +105,7 @@ module CheesyActionItems
       halt(400, "Missing mentors.") if params[:mentor].nil?
       action_item = Action_Item.create(:title => params[:title], :deliverables => params[:deliverables],
                 :leaders => params[:leaders], :due_date => params[:due_date], :mentor => params[:mentor])
-      redirect "/action_items/#{action_item.id}"
+      redirect "/action_item/#{action_item.id}"
     end
 
   end

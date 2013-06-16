@@ -1,0 +1,36 @@
+<%= erb :header %>
+
+<div class="container">
+  <h2>Edit action item</h2>
+  <h4><%= @action_item.title %></h4>
+  <form action="/action_items" method="POST">
+
+    <label>Title</label>
+    <input type="text" name="title" value="<%= @action_item.title %>"/>
+
+    <label>Deliverables</label>
+    <textarea name="deliverables" value="<%= @action_item.deliverables %>"/></textarea>
+
+    <label>Leaders</label>
+    <input type="text" name="leaders" value="<%= @action_item.leaders %>"/>
+
+    <label>Start date</label>
+    <input type="text" name="due_date" value="<%= @action_item.start_date %>"/>
+
+    <label>Due date</label>
+    <input type="text" name="due_date" value="<%= @action_item.due_date %>"/>
+
+    <label>Completion date</label>
+    <input type="text" name="due_date" value="<%= @action_item.completion_date %>"/>
+
+    <label>Mentor</label>
+    <input type="text" name="mentor" value="<%= @action_item.mentor %>"/>
+
+    <label>
+      <input type="submit" class="btn btn-success btn-medium" value="Edit action item">
+    </label>
+    
+  </form>
+</div>
+
+<%= erb :footer %>
