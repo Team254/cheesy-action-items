@@ -5,6 +5,7 @@
 
 require "pathological"
 require "sinatra/base"
+require "time"
 
 require "config/environment"
 require "models"
@@ -71,13 +72,13 @@ module CheesyActionItems
     end
 
     get "/action_item/:id/edit" do
-      @action_item = Action_Item[params[:id]]
+      @action_item = ActionItem[params[:id]]
       halt(400, "Invalid action item,") if @action_item.nil?
       erb :edit_action_item
     end
 
     post "/action_item/:id/edit" do
-      @action_item = Action_Item[params[:id]]
+      @action_item = ActionItem[params[:id]]
       halt(400, "Invalid action item.") if @action_item.nil?
 
       @action_item.title = params[:title] if params[:title]
@@ -105,6 +106,8 @@ module CheesyActionItems
       halt(400, "Missing mentors.") if params[:mentor].nil?
       action_item = ActionItem.create(:title => params[:title], :deliverables => params[:deliverables],
                 :leaders => params[:leaders], :due_date => params[:due_date], :mentor => params[:mentor])
+      action_item.start_date = Time.now.utc.to_s
+      action_item.save
       redirect "/action_item/#{action_item.id}"
     end
 
