@@ -4,7 +4,6 @@ Sequel.migration do
             primary_key :id
             String :title, :null => false
             Text :deliverables, :null => false
-            Integer :leaders, :null => false
             DateTime :start_date, :null => false
             DateTime :due_date, :null => false
             DateTime :completion_date

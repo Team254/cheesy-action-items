@@ -105,9 +105,12 @@ module CheesyActionItems
       halt(400, "Missing due date.") if params[:due_date].nil?
       halt(400, "Missing mentors.") if params[:mentor].nil?
       action_item = ActionItem.create(:title => params[:title], :deliverables => params[:deliverables],
-                :leaders => params[:leaders], :due_date => params[:due_date], :mentor => params[:mentor])
+                                      :due_date => params[:due_date], :mentor => params[:mentor])
       action_item.start_date = Time.now.utc.to_s
       action_item.save
+      leaders = params[:leaders].split(",").each do |user_id|
+        action_item.add_user(User[user_id])
+      end
       redirect "/action_item/#{action_item.id}"
     end
 
