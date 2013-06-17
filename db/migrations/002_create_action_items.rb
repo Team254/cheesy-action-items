@@ -2,14 +2,14 @@ Sequel.migration do
     change do
         create_table(:action_items) do
             primary_key :id
-            Text :title, :null => false
+            String :title, :null => false
             Text :deliverables, :null => false
-            Integer :user_id, :null => false
+            Integer :leaders, :null => false
             DateTime :start_date, :null => false
             DateTime :due_date, :null => false
             DateTime :completion_date
             Float :grade
-            Text :mentor, :null => false
+            String :mentor, :null => false
         end
     end
 end

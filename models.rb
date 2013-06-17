@@ -7,3 +7,4 @@ require "sequel"
 
 require "db"
 require "models/user"
+require "models/action_item"

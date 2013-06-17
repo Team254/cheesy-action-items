@@ -65,7 +65,7 @@ module CheesyActionItems
     end
 
     get "/action_item/:id" do
-      @action_item = Action_Item[params[:id]]
+      @action_item = ActionItem[params[:id]]
       halt(400, "Invalid action item.") if @action_item.nil?
       erb :action_item
     end
@@ -103,7 +103,7 @@ module CheesyActionItems
       halt(400, "Missing leaders.") if params[:leaders].nil?
       halt(400, "Missing due date.") if params[:due_date].nil?
       halt(400, "Missing mentors.") if params[:mentor].nil?
-      action_item = Action_Item.create(:title => params[:title], :deliverables => params[:deliverables],
+      action_item = ActionItem.create(:title => params[:title], :deliverables => params[:deliverables],
                 :leaders => params[:leaders], :due_date => params[:due_date], :mentor => params[:mentor])
       redirect "/action_item/#{action_item.id}"
     end
