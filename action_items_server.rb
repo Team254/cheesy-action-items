@@ -114,5 +114,9 @@ module CheesyActionItems
       redirect "/action_item/#{action_item.id}"
     end
 
+    get "/api/leaders" do
+      erb :leader_list
+    end
+
   end
 end

@@ -19,4 +19,13 @@ class User < Sequel::Model
     return wordpress_fields[field] if wordpress_fields.include?(field)
     raise NoMethodError.new("undefined method '#{method}' for #{self}")
   end
+
+  def is_leader?
+    # TODO
+  end
+
+  def is_mentor?
+    # TODO
+  end
+
 end
