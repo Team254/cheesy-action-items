@@ -1,6 +1,6 @@
 $(function(){
     $('.typeahead').typeahead();
-    $('#due-date-picker').datepicker();
+    $('#due_date').datepicker();
 
     $("#future-one-week").click(function(event) {
         var nextWeek = new Date();
@@ -16,7 +16,7 @@ $(function(){
             day = "0" + month.toString();
         }
 
-        $("#due-date-picker").val(year + "-" + month + "-" + day);
+        $("#due_date").val(year + "-" + month + "-" + day);
     });
 });
 

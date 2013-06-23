@@ -21,11 +21,7 @@ class User < Sequel::Model
   end
 
   def is_leader?
-    # TODO
+    return wordpress_fields["leader"]
   end
-
-  def is_mentor?
-    # TODO
-  end
-
+  
 end
