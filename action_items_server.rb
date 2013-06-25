@@ -64,19 +64,19 @@ module CheesyActionItems
       #"This page intentionally left blank, #{@user.name}."
     end
 
-    get "/action_item/:id" do
+    get "/action_items/:id" do
       @action_item = ActionItem[params[:id]]
       halt(400, "Invalid action item.") if @action_item.nil?
       erb :action_item
     end
 
-    get "/action_item/:id/edit" do
+    get "/action_items/:id/edit" do
       @action_item = ActionItem[params[:id]]
       halt(400, "Invalid action item,") if @action_item.nil?
       erb :edit_action_item
     end
 
-    post "/action_item/:id/edit" do
+    post "/action_items/:id/edit" do
       @action_item = ActionItem[params[:id]]
       halt(400, "Invalid action item.") if @action_item.nil?
 
@@ -89,13 +89,12 @@ module CheesyActionItems
       @action_item.grade = params[:grade] if params[:grade]
       @action_item.mentor = params[:mentor] if params[:mentor]
       @action_item.save
-      redirect "/action_item/#{params[:id]}"
+      redirect "/action_items/#{params[:id]}"
     end
 
     get "/new_action_item" do
       erb :new_action_item
     end
-
 
     post "/action_items" do
       halt(400, "Missing title.") if params[:title].nil?
@@ -110,7 +109,7 @@ module CheesyActionItems
       leaders = params[:leaders].split(",").each do |user_id|
         action_item.add_user(User[user_id])
       end
-      redirect "/action_item/#{action_item.id}"
+      redirect "/action_items/#{action_item.id}"
     end
 
     get "/api/leaders" do
