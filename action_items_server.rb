@@ -79,6 +79,7 @@ module CheesyActionItems
     post "/action_items/:id/edit" do
       @action_item = ActionItem[params[:id]]
       halt(400, "Invalid action item.") if @action_item.nil?
+      before_json = @action_item.to_json
 
       @action_item.title = params[:title] if params[:title]
       @action_item.deliverables = params[:deliverables] if params[:deliverables]
@@ -89,6 +90,19 @@ module CheesyActionItems
       @action_item.grade = params[:grade] if params[:grade]
       @action_item.mentor = params[:mentor] if params[:mentor]
       @action_item.save
+
+      if params[:leaders]
+        @action_item.remove_all_users
+        leaders = params[:leaders].split(",").each do |user_id|
+          @action_item.add_user(User[user_id])
+        end
+      end
+
+      # Save the before and after serialization of the action item to the logging table.
+      after_json = @action_item.to_json
+      ActionItemLog.create(:action_item_id => @action_item.id, :user_id => @user.id, :changed_at => Time.now,
+                           :old_content => before_json, :new_content => after_json)
+
       redirect "/action_items/#{params[:id]}"
     end
 

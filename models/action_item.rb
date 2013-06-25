@@ -15,4 +15,10 @@ class ActionItem < Sequel::Model
     end
     super
   end
+
+  def to_json
+    { :id => id, :title => title, :deliverables => deliverables, :start_date => start_date,
+      :due_date => due_date, :completion_date => completion_date, :grade => grade, :mentor => mentor,
+      :users => users.map(&:name) }.to_json
+  end
 end
