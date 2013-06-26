@@ -21,7 +21,23 @@ class User < Sequel::Model
   end
 
   def is_leader?
-    return wordpress_fields["leader"]
+    wordpress_fields["leader"] == 1
   end
-  
+
+  def open_action_items
+    action_items.select { |item| item.completion_date.nil? }
+  end
+
+  def completed_action_items
+    action_items.select { |item| !item.completion_date.nil? }
+  end
+
+  def sorted_action_items
+    [open_action_items.sort_by(&:due_date), completed_action_items.sort_by(&:due_date)].flatten
+  end
+
+  def grade
+    items = completed_action_items
+    items.inject(0) { |sum, item| sum + item.grade.to_f } / items.size * 100 rescue 0
+  end
 end

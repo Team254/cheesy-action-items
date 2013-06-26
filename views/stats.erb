@@ -1,0 +1,22 @@
+<%= erb :header %>
+
+<div class="content">
+  <table class="table table-striped table-bordered table-condensed">
+    <tr>
+      <th>Name</th>
+      <th># Open</th>
+      <th># Completed</th>
+      <th>Grade</th>
+    </tr>
+    <% User.all.select { |user| user.is_leader? }.each do |leader| %>
+      <tr>
+        <td><%= leader.name %></td>
+        <td><%= leader.open_action_items.size %></td>
+        <td><%= leader.completed_action_items.size %></td>
+        <td><%= leader.grade.round(2) %>%</td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= erb :footer %>

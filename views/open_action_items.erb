@@ -1,0 +1,18 @@
+<%= erb :header %>
+
+<div class="content">
+  <div class="row">
+    <div class="span6">
+      <h2>Open Action Items</h2>
+    </div>
+    <div class="pull-right" style="margin-top: 20px;">
+      <a href="/new_action_item" class="btn btn-success btn-small">
+        <i class="icon-white icon-file"></i> New Action Item
+      </a>
+    </div>
+  </div>
+  <%= erb :action_item_list,
+          :locals => { :action_items => ActionItem.where(:completion_date => nil).order(:due_date) } %>
+</div>
+
+<%= erb :footer %>

@@ -1,0 +1,14 @@
+<%= erb :header %>
+
+<div class="content">
+  <% User.all.select { |user| user.is_leader? }.each do |leader| %>
+    <div class="row">
+      <div class="span6">
+        <h2><%= leader.name %></h2>
+      </div>
+    </div>
+    <%= erb :action_item_list, :locals => { :action_items => leader.sorted_action_items } %>
+  <% end %>
+</div>
+
+<%= erb :footer %>

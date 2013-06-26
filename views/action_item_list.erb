@@ -1,0 +1,22 @@
+<table class="table table-striped table-bordered table-condensed">
+<tr>
+  <td>Title</td>
+  <td>Leader(s)</td>
+  <td>Mentor</td>
+  <td>Due</td>
+  <td>Completed</td>
+</tr>
+<% action_items.each do |action_item| %>
+  <tr>
+    <td><%= action_item.title %></td>
+    <td>
+      <% action_item.users.each do |user| %>
+        <%= user.name %>
+      <% end %>
+    </td>
+    <td><%= action_item.mentor %></td>
+    <td><%= action_item.due_date %></td>
+    <td><%= action_item.completion_date %></td>
+  </tr>
+<% end %>
+</table>

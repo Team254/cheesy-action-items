@@ -1,0 +1,13 @@
+<%= erb :header %>
+
+<div class="content">
+  <div class="row">
+    <div class="span6">
+      <h2>Completed Action Items</h2>
+    </div>
+  </div>
+  <%= erb :action_item_list,
+          :locals => { :action_items => ActionItem.where(:completion_date => nil).invert.order(:due_date) } %>
+</div>
+
+<%= erb :footer %>

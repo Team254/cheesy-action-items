@@ -39,6 +39,7 @@ module CheesyActionItems
       wordpress_user_info = get_wordpress_user_info
       if wordpress_user_info
         # TODO(pat): Stop at this point unless the user is a leader or mentor.
+        wordpress_user_info.delete("signature")  # MySQL can't store the Unicode properly.
         user = User[wordpress_user_info["id"]]
         unless user
           # Create a new record in the local DB for the user to cache the Wordpress JSON.
@@ -56,12 +57,19 @@ module CheesyActionItems
     end
 
     get "/" do
-      redirect "/action_items"
+      redirect "/action_items/open"
     end
 
-    get "/action_items" do
-      erb :action_items
-      #"This page intentionally left blank, #{@user.name}."
+    get "/action_items/open" do
+      erb :open_action_items
+    end
+
+    get "/action_items/completed" do
+      erb :completed_action_items
+    end
+
+    get "/action_items/by_leader" do
+      erb :by_leader_action_items
     end
 
     get "/action_items/:id" do
@@ -126,9 +134,12 @@ module CheesyActionItems
       redirect "/action_items/#{action_item.id}"
     end
 
+    get "/stats" do
+      erb :stats
+    end
+
     get "/api/leaders" do
       erb :leader_list
     end
-
   end
 end
