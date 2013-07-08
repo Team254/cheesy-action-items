@@ -3,6 +3,7 @@
 #
 # Script for starting/stopping the action items server.
 
+require "bundler/setup"
 require "daemons"
 require "pathological"
 require "thin"
