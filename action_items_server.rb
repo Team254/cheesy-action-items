@@ -72,12 +72,6 @@ module CheesyActionItems
       erb :by_leader_action_items
     end
 
-    get "/action_items/:id" do
-      @action_item = ActionItem[params[:id]]
-      halt(400, "Invalid action item.") if @action_item.nil?
-      erb :action_item
-    end
-
     get "/action_items/:id/edit" do
       @action_item = ActionItem[params[:id]]
       halt(400, "Invalid action item,") if @action_item.nil?
@@ -91,7 +85,6 @@ module CheesyActionItems
 
       @action_item.title = params[:title] if params[:title]
       @action_item.deliverables = params[:deliverables] if params[:deliverables]
-      # don't think this works: @action_item.leaders = params[:leaders] if params[:leaders]
       @action_item.start_date = params[:start_date] if params[:start_date]
       @action_item.due_date = params[:due_date] if params[:due_date]
       @action_item.completion_date = params[:completion_date] if params[:completion_date]
@@ -111,7 +104,7 @@ module CheesyActionItems
       ActionItemLog.create(:action_item_id => @action_item.id, :user_id => @user.id, :changed_at => Time.now,
                            :old_content => before_json, :new_content => after_json)
 
-      redirect "/action_items/#{params[:id]}"
+      redirect "/action_items/open"
     end
 
     get "/new_action_item" do
@@ -131,7 +124,7 @@ module CheesyActionItems
       leaders = params[:leaders].split(",").each do |user_id|
         action_item.add_user(User[user_id])
       end
-      redirect "/action_items/#{action_item.id}"
+      redirect "/action_items/open"
     end
 
     get "/stats" do
@@ -139,7 +132,8 @@ module CheesyActionItems
     end
 
     get "/api/leaders" do
-      erb :leader_list
+      content_type :json
+      User.all.map(&:wordpress_fields).to_json
     end
   end
 end
