@@ -51,7 +51,7 @@ module CheesyActionItems
         session[:user_id] = user.id
         redirect @redirect
       else
-        redirect_path = URI.encode("http://action-items.team254.com:9003/login?redirect=#{@redirect}")
+        redirect_path = URI.encode("http://action-items.team254.com/login?redirect=#{@redirect}")
         redirect "http://www.team254.com/wp-login.php?redirect_to=#{redirect_path}"
       end
     end
