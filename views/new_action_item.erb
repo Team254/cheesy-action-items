@@ -11,7 +11,9 @@
     <textarea name="deliverables" /></textarea>
 
     <label>Leaders</label>
-    <input type="text" name="leaders" data-provide="typeahead"/>
+    <div id="leaders"></div>
+    <input type="text" id="leader-list" autocomplete="off" />
+    <input type="hidden" id="leader-ids" name="leaders" />
 
     <label>Due date</label>
     <input type="text" class="span2" placeholder="Select day" data-date-format="yyyy-mm-dd" id="due_date" name="due_date" />

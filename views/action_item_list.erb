@@ -14,7 +14,7 @@
     <td class="deliverables"><%= action_item.deliverables %></td>
     <td>
       <% action_item.users.each do |user| %>
-        <%= user.name %>
+        <div style="white-space: nowrap;"><%= user.name %></div>
       <% end %>
     </td>
     <td><%= action_item.mentor %></td>

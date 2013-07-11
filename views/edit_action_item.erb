@@ -12,7 +12,10 @@
     <textarea name="deliverables"><%= @action_item.deliverables %></textarea>
 
     <label>Leaders</label>
-    <input type="text" name="leaders" value="<%= @action_item.users.map(&:id).join(",") %>"/>
+    <div id="leaders"></div>
+    <input type="text" id="leader-list" autocomplete="off" />
+    <input type="hidden" id="leader-ids" name="leaders"
+        value="<%= @action_item.users.map(&:id).join(",") %>" />
 
     <label>Start date</label>
     <input type="text" name="start_date" value="<%= @action_item.start_date %>"/>

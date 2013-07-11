@@ -4,6 +4,16 @@
     <script src="/js/bootstrap-editable.min.js"></script>
     <script src="/js/select2.min.js"></script>
     <!--<script src="/js/bootstrap-datepicker.js"></script>-->
+    <script>
+      var leaders = [];
+      var leaderIds = {};
+      var leaderNames = {};
+      <% User.each do |user| %>
+        leaders.push("<%= user.name %>");
+        leaderIds["<%= user.name %>"] = <%= user.id %>;
+        leaderNames[<%= user.id %>] = "<%= user.name %>";
+      <% end %>
+    </script>
     <script src="/js/js.js"></script>
   </body>
 </html>
