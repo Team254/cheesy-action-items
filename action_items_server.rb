@@ -51,7 +51,7 @@ module CheesyActionItems
         session[:user_id] = user.id
         redirect @redirect
       else
-        redirect_path = URI.encode("http://action-items.team254.com/login?redirect=#{@redirect}")
+        redirect_path = URI.encode("http://action-items.team254.com:9003/login?redirect=#{@redirect}")
         redirect "http://www.team254.com/wp-login.php?redirect_to=#{redirect_path}"
       end
     end
@@ -118,9 +118,8 @@ module CheesyActionItems
       halt(400, "Missing due date.") if params[:due_date].nil?
       halt(400, "Missing mentors.") if params[:mentor].nil?
       action_item = ActionItem.create(:title => params[:title], :deliverables => params[:deliverables],
-                                      :due_date => params[:due_date], :mentor => params[:mentor])
-      action_item.start_date = Time.now.utc.to_s
-      action_item.save
+                                      :start_date => Time.now, :due_date => params[:due_date],
+                                      :mentor => params[:mentor])
       leaders = params[:leaders].split(",").each do |user_id|
         action_item.add_user(User[user_id])
       end
