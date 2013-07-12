@@ -134,5 +134,11 @@ module CheesyActionItems
       content_type :json
       User.all.map(&:wordpress_fields).to_json
     end
+
+    post "/api/edit" do
+      # TODO: param checking, throw a 400
+      # TODO: prettier client response upon success
+      ActionItem.where(:id => params[:pk]).update(params[:name] => params[:value])
+    end
   end
 end

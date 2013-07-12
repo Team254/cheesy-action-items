@@ -1,3 +1,13 @@
+$(document).ready(function() {
+    $.fn.editable.defaults.mode = 'inline';
+    $('#title').editable();
+    $('#deliverables').editable();
+});
+
+$('#toggle-editing').click(function(e) {
+    // toggle edit state
+});
+
 function getCurrentLeaders() {
   var currentLeaders = $("#leader-ids").val();
   if (currentLeaders) {

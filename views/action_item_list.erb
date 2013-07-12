@@ -10,8 +10,8 @@
 </tr>
 <% action_items.each do |action_item| %>
   <tr>
-    <td><%= action_item.title %></td>
-    <td class="deliverables"><%= action_item.deliverables %></td>
+    <td><a href="#" id="title" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit" ><%= action_item.title %></a></td>
+    <td class="deliverables"><a href="#" id="deliverables" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.deliverables %></a></td>
     <td>
       <% action_item.users.each do |user| %>
         <div style="white-space: nowrap;"><%= user.name %></div>
