@@ -1,11 +1,12 @@
 $(document).ready(function() {
-    $.fn.editable.defaults.mode = 'inline';
-    $('#title').editable();
-    $('#deliverables').editable();
+    // issue: value doesn't update in the browser until refresh
+    // issue: can't edit deliverables
 });
 
 $('#toggle-editing').click(function(e) {
-    // toggle edit state
+    $.fn.editable.defaults.mode = 'inline';
+    $(".editable").editable();
+    // TODO: enable toggling
 });
 
 function getCurrentLeaders() {

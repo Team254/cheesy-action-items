@@ -10,14 +10,15 @@
 </tr>
 <% action_items.each do |action_item| %>
   <tr>
-    <td><a href="#" id="title" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit" ><%= action_item.title %></a></td>
-    <td class="deliverables"><a href="#" id="deliverables" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.deliverables %></a></td>
+    <td><a href="#" class="editable" id="title" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit" ><%= action_item.title %></a></td>
+    <!-- Can't seem to edit deliverables? -->
+    <td class="deliverables editable"><a href="#" id="deliverables" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.deliverables %></a></td>
     <td>
       <% action_item.users.each do |user| %>
         <div style="white-space: nowrap;"><%= user.name %></div>
       <% end %>
     </td>
-    <td><%= action_item.mentor %></td>
+    <td><a href="#" class="editable" id="mentor" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit" ><%= action_item.mentor %></a></td>
     <td style="white-space: nowrap;">
       <%= action_item.due_date ? action_item.due_date.strftime("%Y-%m-%d") : "" %>
     </td>
