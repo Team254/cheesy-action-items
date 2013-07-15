@@ -1,12 +1,36 @@
 $(document).ready(function() {
     // issue: value doesn't update in the browser until refresh
-    // issue: popup setting looks better, but appears off page
-    $.fn.editable.defaults.mode = 'inline';
-    $(".editable").editable("disable");
+    $.fn.editable.defaults.mode = "popup";
+
+    $(".editable").editable({
+      disabled: true,
+      placement: "bottom",
+      // why won't this work?
+      display: function(value, response) {
+        $(this).html(response);
+      },
+      success: function(value, response) {
+        console.log(response);
+      }
+    });
+});
+
+// why won't this work?
+$(".editable").on('save', function(e, params) {
+    console.log('Saved value: ' + params.newValue);
 });
 
 $('#toggle-editing').click(function(e) {
     $(".editable").editable("toggleDisabled");
+    // why won't this work?
+    $(".editable").editable({
+      display: function(value, response) {
+        $(this).html(response);
+      },
+      success: function(value, response) {
+        console.log(response);
+      }
+    });
 });
 
 function getCurrentLeaders() {
