@@ -1,11 +1,11 @@
 $(document).ready(function() {
     // issue: value doesn't update in the browser until refresh
-    // issue: can't edit deliverables
+    // issue: popup setting looks better, but appears off page
+    $.fn.editable.defaults.mode = 'inline';
     $(".editable").editable("disable");
 });
 
 $('#toggle-editing').click(function(e) {
-    $.fn.editable.defaults.mode = 'inline';
     $(".editable").editable("toggleDisabled");
 });
 
@@ -56,8 +56,9 @@ $(function() {
   if (currentLeaders) {
     updateLeaderList(currentLeaders);
   }
-
-  $("#due_date").datepicker();
+  // commented out because datepicker and x-editable aren't compatible
+  // will change to just use x-editable
+  //$("#due_date").datepicker();
 
   $("#future-one-week").click(function(event) {
     var nextWeek = new Date();

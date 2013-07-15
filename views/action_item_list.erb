@@ -10,20 +10,29 @@
 </tr>
 <% action_items.each do |action_item| %>
   <tr>
-    <td><a href="#" class="editable" id="title" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit" ><%= action_item.title %></a></td>
-    <!-- Can't seem to edit deliverables? -->
-    <td><a href="#" class="deliverables editable" id="deliverables" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.deliverables %></a></td>
+    <td>
+      <a href="#" class="editable" id="title" data-type="textarea" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.title %></a>
+    </td>
+    <td>
+      <a href="#" class="deliverables editable" id="deliverables" data-type="textarea" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.deliverables %></a>
+    </td>
     <td>
       <% action_item.users.each do |user| %>
         <div style="white-space: nowrap;"><%= user.name %></div>
       <% end %>
     </td>
-    <td><a href="#" class="editable" id="mentor" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit" ><%= action_item.mentor %></a></td>
-    <td style="white-space: nowrap;">
-      <%= action_item.due_date ? action_item.due_date.strftime("%Y-%m-%d") : "" %>
+    <td>
+      <a href="#" class="editable" id="mentor" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.mentor %></a>
     </td>
     <td style="white-space: nowrap;">
-      <%= action_item.completion_date ? action_item.completion_date.strftime("%Y-%m-%d") : "" %>
+      <a href="#" class="editable" id="due_date" data-type="date" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.due_date ? action_item.due_date.strftime("%Y-%m-%d") : "" %></a>
+    </td>
+    <td style="white-space: nowrap;">
+      <% if @user.is_mentor? %>
+        <a href="#" class="editable" id="completion_date" data-type="date" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.completion_date ? action_item.completion_date.strftime("%Y-%m-%d") : "" %></a>
+      <% else %>
+        <%= action_item.completion_date ? action_item.completion_date.strftime("%Y-%m-%d") : "" %>
+      <% end %>
     </td>
     <td>
       <a href="/action_items/<%= action_item.id %>/edit" class="btn btn-primary btn-small">

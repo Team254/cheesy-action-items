@@ -24,6 +24,10 @@ class User < Sequel::Model
     wordpress_fields["leader"] == 1
   end
 
+  def is_mentor?
+    wordpress_fields["mentor"] == 1
+  end
+
   def open_action_items
     action_items.select { |item| item.completion_date.nil? }
   end
