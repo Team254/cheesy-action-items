@@ -1,12 +1,12 @@
 $(document).ready(function() {
     // issue: value doesn't update in the browser until refresh
     // issue: can't edit deliverables
+    $(".editable").editable("disable");
 });
 
 $('#toggle-editing').click(function(e) {
     $.fn.editable.defaults.mode = 'inline';
-    $(".editable").editable();
-    // TODO: enable toggling
+    $(".editable").editable("toggleDisabled");
 });
 
 function getCurrentLeaders() {
