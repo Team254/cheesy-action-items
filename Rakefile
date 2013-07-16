@@ -36,4 +36,5 @@ Fezzik.destination :prod do
   env :db_password, "complementingnotmixing"
   env :db_database, "cheesy_action_items"
   env :wordpress_auth_url, "http://www.team254.com/auth/"
+  env :base_address, "http://action-items.team254.com"
 end
