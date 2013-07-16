@@ -105,8 +105,10 @@ module CheesyActionItems
 
       # Save the before and after serialization of the action item to the logging table.
       after_json = @action_item.to_json
-      ActionItemLog.create(:action_item_id => @action_item.id, :user_id => @user.id, :changed_at => Time.now,
-                           :old_content => before_json, :new_content => after_json)
+      unless after_json == before_json
+        ActionItemLog.create(:action_item_id => @action_item.id, :user_id => @user.id,
+                             :changed_at => Time.now, :old_content => before_json, :new_content => after_json)
+      end
 
       redirect "/action_items/open"
     end
