@@ -25,7 +25,7 @@
     <input type="text" name="due_date" class="datepicker" data-date-format="yyyy-mm-dd"
         value="<%= @action_item.due_date ? @action_item.due_date.strftime("%Y-%m-%d") : "" %>"/>
 
-    <% if @user.mentor == 1 %>
+    <% if @user.is_mentor? %>
     <label>Completion date</label>
     <input type="text" name="completion_date" class="datepicker" data-date-format="yyyy-mm-dd"
         value="<%= @action_item.completion_date ? @action_item.completion_date.strftime("%Y-%m-%d") : "" %>"/>

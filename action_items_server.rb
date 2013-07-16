@@ -91,7 +91,7 @@ module CheesyActionItems
       @action_item.deliverables = params[:deliverables] if params[:deliverables]
       @action_item.start_date = params[:start_date] if params[:start_date]
       @action_item.due_date = params[:due_date] if params[:due_date]
-      if params[:completion_date] && @user.mentor? == 1
+      if params[:completion_date] && @user.is_mentor?
         @action_item.completion_date = params[:completion_date]
       end
       @action_item.grade = params[:grade] if params[:grade]
@@ -111,6 +111,25 @@ module CheesyActionItems
         ActionItemLog.create(:action_item_id => @action_item.id, :user_id => @user.id,
                              :changed_at => Time.now, :old_content => before_json, :new_content => after_json)
       end
+
+      redirect "/action_items/open"
+    end
+
+    get "/action_items/:id/delete" do
+      @action_item = ActionItem[params[:id]]
+      halt(400, "Invalid action item,") if @action_item.nil?
+      erb :delete_action_item
+    end
+
+    post "/action_items/:id/delete" do
+      @action_item = ActionItem[params[:id]]
+      halt(400, "Invalid action item.") if @action_item.nil?
+      before_json = @action_item.to_json
+      @action_item.delete
+
+      # Log the deletion of the action item.
+      ActionItemLog.create(:action_item_id => @action_item.id, :user_id => @user.id, :changed_at => Time.now,
+                           :old_content => before_json, :new_content => "deleted")
 
       redirect "/action_items/open"
     end
