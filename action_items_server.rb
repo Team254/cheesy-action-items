@@ -91,7 +91,9 @@ module CheesyActionItems
       @action_item.deliverables = params[:deliverables] if params[:deliverables]
       @action_item.start_date = params[:start_date] if params[:start_date]
       @action_item.due_date = params[:due_date] if params[:due_date]
-      @action_item.completion_date = params[:completion_date] if params[:completion_date]
+      if params[:completion_date] && @user.mentor? == 1
+        @action_item.completion_date = params[:completion_date]
+      end
       @action_item.grade = params[:grade] if params[:grade]
       @action_item.mentor = params[:mentor] if params[:mentor]
       @action_item.save

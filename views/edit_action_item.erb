@@ -18,13 +18,18 @@
         value="<%= @action_item.users.map(&:id).join(",") %>" />
 
     <label>Start date</label>
-    <input type="text" name="start_date" value="<%= @action_item.start_date %>"/>
+    <input type="text" name="start_date" class="datepicker" data-date-format="yyyy-mm-dd"
+        value="<%= @action_item.start_date ? @action_item.start_date.strftime("%Y-%m-%d") : "" %>"/>
 
     <label>Due date</label>
-    <input type="text" name="due_date" value="<%= @action_item.due_date %>"/>
+    <input type="text" name="due_date" class="datepicker" data-date-format="yyyy-mm-dd"
+        value="<%= @action_item.due_date ? @action_item.due_date.strftime("%Y-%m-%d") : "" %>"/>
 
+    <% if @user.mentor == 1 %>
     <label>Completion date</label>
-    <input type="text" name="completion_date" value="<%= @action_item.completion_date %>"/>
+    <input type="text" name="completion_date" class="datepicker" data-date-format="yyyy-mm-dd"
+        value="<%= @action_item.completion_date ? @action_item.completion_date.strftime("%Y-%m-%d") : "" %>"/>
+    <% end %>
 
     <label>Mentor</label>
     <input type="text" name="mentor" value="<%= @action_item.mentor %>"/>
@@ -32,7 +37,7 @@
     <label>
       <input type="submit" class="btn btn-success btn-medium" value="Edit action item">
     </label>
-    
+
   </form>
 </div>
 

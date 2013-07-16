@@ -83,6 +83,7 @@ $(function() {
   // commented out because datepicker and x-editable aren't compatible
   // will change to just use x-editable
   //$("#due_date").datepicker();
+  $(".datepicker").datepicker();
 
   $("#future-one-week").click(function(event) {
     var nextWeek = new Date();
