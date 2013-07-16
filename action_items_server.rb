@@ -166,6 +166,7 @@ module CheesyActionItems
       # TODO: param checking, throw a 400
       # TODO: prettier client response upon success
       ActionItem.where(:id => params[:pk]).update(params[:name] => params[:value])
+      halt(200, "OK")
     end
   end
 end

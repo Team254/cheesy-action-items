@@ -1,36 +1,13 @@
 $(document).ready(function() {
-    // issue: value doesn't update in the browser until refresh
     $.fn.editable.defaults.mode = "popup";
-
     $(".editable").editable({
       disabled: true,
-      placement: "bottom",
-      // why won't this work?
-      display: function(value, response) {
-        $(this).html(response);
-      },
-      success: function(value, response) {
-        console.log(response);
-      }
+      placement: "bottom"
     });
-});
-
-// why won't this work?
-$(".editable").on('save', function(e, params) {
-    console.log('Saved value: ' + params.newValue);
 });
 
 $('#toggle-editing').click(function(e) {
     $(".editable").editable("toggleDisabled");
-    // why won't this work?
-    $(".editable").editable({
-      display: function(value, response) {
-        $(this).html(response);
-      },
-      success: function(value, response) {
-        console.log(response);
-      }
-    });
 });
 
 function getCurrentLeaders() {
@@ -80,9 +57,7 @@ $(function() {
   if (currentLeaders) {
     updateLeaderList(currentLeaders);
   }
-  // commented out because datepicker and x-editable aren't compatible
-  // will change to just use x-editable
-  //$("#due_date").datepicker();
+
   $(".datepicker").datepicker();
 
   $("#future-one-week").click(function(event) {
