@@ -35,12 +35,14 @@
       <% end %>
     </td>
     <td>
-      <a href="/action_items/<%= action_item.id %>/edit" class="btn btn-primary btn-small">
-        <i class="icon-white icon-pencil"></i>
-      </a>
-      <a href="/action_items/<%= action_item.id %>/delete" class="btn btn-danger btn-small">
-        <i class="icon-white icon-trash"></i>
-      </a>
+      <span style="white-space: nowrap;">
+        <a href="/action_items/<%= action_item.id %>/edit" class="btn btn-primary btn-small">
+          <i class="icon-white icon-pencil"></i>
+        </a>
+        <a href="/action_items/<%= action_item.id %>/delete" class="btn btn-danger btn-small">
+          <i class="icon-white icon-trash"></i>
+        </a>
+      </span>
     </td>
   </tr>
 <% end %>
