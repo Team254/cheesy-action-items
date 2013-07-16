@@ -11,7 +11,7 @@ module CheesyActionItems
   # Helper mixin for third-party authentication using Wordpress.
   module WordpressAuthentication
     def wordpress_cookie
-      request.cookies["wordpress_logged_in_0fc37bfb93e6c402b8ee006e0cfa4646"]
+      request.cookies[request.cookies.keys.select { |key| key =~ /wordpress_logged_in_[0-9a-f]{32}/ }.first]
     end
 
     # Returns a hash of user info if logged in to Wordpress, or nil otherwise.
