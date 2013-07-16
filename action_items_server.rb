@@ -38,7 +38,11 @@ module CheesyActionItems
       # Authenticate against Wordpress.
       wordpress_user_info = get_wordpress_user_info
       if wordpress_user_info
-        # TODO(pat): Stop at this point unless the user is a leader or mentor.
+        # Only allow leaders and mentors past this point.
+        unless wordpress_user_info["mentor"] == 1 || wordpress_user_info["leader"] == 1
+          halt(403, "Error: must be a leader or mentor.")
+        end
+
         wordpress_user_info.delete("signature")  # MySQL can't store the Unicode properly.
         user = User[wordpress_user_info["id"]]
         unless user
