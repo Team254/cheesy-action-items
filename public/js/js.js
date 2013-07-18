@@ -60,7 +60,7 @@ $(function() {
 
   $(".datepicker").datepicker();
 
-  $("#future-one-week").click(function(event) {
+  $("#due-date").ready(function(event) {
     var nextWeek = new Date();
     nextWeek.setDate(nextWeek.getDate() + 7);
     var year = nextWeek.getFullYear();
@@ -74,6 +74,6 @@ $(function() {
       day = "0" + month.toString();
     }
 
-    $("#due_date").val(year + "-" + month + "-" + day);
+    $("#due-date").val(year + "-" + month + "-" + day);
   });
 });
