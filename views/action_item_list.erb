@@ -4,6 +4,7 @@
   <th>Deliverables / Definition of "Done"</th>
   <th>Leader(s)</th>
   <th>Mentor</th>
+  <th>Created</th>
   <th>Due</th>
   <th>Completed</th>
   <th>Edit</th>
@@ -23,6 +24,9 @@
     </td>
     <td>
       <a href="#" class="editable" id="mentor" data-type="text" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.mentor %></a>
+    </td>
+    <td style="white-space: nowrap;">
+      <%= action_item.start_date ? action_item.start_date.strftime("%Y-%m-%d") : "" %>
     </td>
     <td style="white-space: nowrap;">
       <a href="#" class="editable" id="due_date" data-type="date" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.due_date ? action_item.due_date.strftime("%Y-%m-%d") : "" %></a>
