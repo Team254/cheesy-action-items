@@ -165,6 +165,9 @@ module CheesyActionItems
     post "/api/edit" do
       # TODO: param checking, throw a 400
       # TODO: prettier client response upon success
+      if params[:name] == "completion_date" && !@user.is_mentor?
+        halt(400, "Only mentors can close an action item.")
+      end
       ActionItem.where(:id => params[:pk]).update(params[:name] => params[:value])
       halt(200, "OK")
     end
