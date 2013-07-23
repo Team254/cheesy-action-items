@@ -7,6 +7,7 @@
   <th>Created</th>
   <th>Due</th>
   <th>Completed</th>
+  <th>Result</th>
   <th>Edit</th>
 </tr>
 <% action_items.each do |action_item| %>
@@ -37,6 +38,12 @@
       <% else %>
         <%= action_item.completion_date ? action_item.completion_date.strftime("%Y-%m-%d") : "" %>
       <% end %>
+    </td>
+    <td>
+      <a href="#" class="result editable" id="result" data-type="textarea" data-pk="<%= action_item.id %>"
+          data-url="/api/edit">
+        <%= action_item.result %>
+      </a>
     </td>
     <td>
       <span style="white-space: nowrap;">

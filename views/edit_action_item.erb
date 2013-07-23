@@ -31,6 +31,9 @@
         value="<%= @action_item.completion_date ? @action_item.completion_date.strftime("%Y-%m-%d") : "" %>"/>
     <% end %>
 
+    <label>Result</label>
+    <textarea name="result"><%= @action_item.result %></textarea>
+
     <label>Mentor</label>
     <input type="text" name="mentor" value="<%= @action_item.mentor %>"/>
 

@@ -96,6 +96,7 @@ module CheesyActionItems
       end
       @action_item.grade = params[:grade] if params[:grade]
       @action_item.mentor = params[:mentor] if params[:mentor]
+      @action_item.result = params[:result] if params[:result]
       @action_item.save
 
       if params[:leaders]
