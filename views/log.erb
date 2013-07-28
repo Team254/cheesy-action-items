@@ -1,0 +1,22 @@
+<%= erb :header %>
+
+<div class="content">
+  <table class="table table-striped table-bordered table-condensed">
+    <tr>
+      <th>Action Item</th>
+      <th>Time Changed</th>
+      <th>Changed By</th>
+      <th>Change</th>
+    </tr>
+    <% ActionItemLog.each do |change| %>
+      <tr>
+        <td><%= change.action_item.title rescue "##{change.action_item_id} (deleted)" %></td>
+        <td style="white-space: nowrap;"><%= change.changed_at.localtime.strftime("%F %T") %></td>
+        <td style="white-space: nowrap;"><%= change.user.name %></td>
+        <td><%= change.diff %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= erb :footer %>

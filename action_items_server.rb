@@ -158,6 +158,11 @@ module CheesyActionItems
       erb :stats
     end
 
+    get "/log" do
+      halt(400, "Mentors only.") unless @user.is_mentor?
+      erb :log
+    end
+
     get "/api/leaders" do
       content_type :json
       User.all.map(&:wordpress_fields).to_json
