@@ -79,7 +79,7 @@ $(function() {
       month = "0" + month.toString();
     }
     if (day.toString().length < 2) {
-      day = "0" + month.toString();
+      day = "0" + day.toString();
     }
 
     $("#due-date").val(year + "-" + month + "-" + day);
