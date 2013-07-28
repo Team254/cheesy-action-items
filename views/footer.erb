@@ -5,13 +5,17 @@
     <script src="/js/bootstrap-editable.min.js"></script>
     <script>
       var leaders = [];
+      var allLeaderIds = [];
       var leaderIds = {};
       var leaderNames = {};
-      <% User.each do |user| %>
+      <% User.all.select { |user| user.is_leader? }.each do |user| %>
         leaders.push("<%= user.name %>");
+        allLeaderIds.push(<%= user.id %>);
         leaderIds["<%= user.name %>"] = <%= user.id %>;
         leaderNames[<%= user.id %>] = "<%= user.name %>";
       <% end %>
+      leaders.push("All Leaders");
+      leaderIds["All Leaders"] = -1;
     </script>
     <script src="/js/js.js"></script>
   </body>

@@ -40,7 +40,15 @@ $(function() {
     source: leaders,
     updater: function(item) {
       var currentLeaders = getCurrentLeaders();
-      currentLeaders.push(leaderIds[item]);
+      var leaderId = leaderIds[item];
+      if (leaderId == -1) {
+        // Add all student leaders as a shortcut.
+        for (var i = 0; i < allLeaderIds.length; i++) {
+          currentLeaders.push(allLeaderIds[i]);
+        }
+      } else {
+        currentLeaders.push(leaderId);
+      }
       $("#leader-ids").val(currentLeaders.join());
       updateLeaderList(currentLeaders);
       return "";
