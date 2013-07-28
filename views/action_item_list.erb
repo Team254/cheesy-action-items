@@ -2,6 +2,7 @@
 <tr>
   <th>Title</th>
   <th>Deliverables / Definition of "Done"</th>
+  <th>Created By</th>
   <th>Leader(s)</th>
   <th>Mentor</th>
   <th>Created</th>
@@ -18,6 +19,7 @@
     <td>
       <a href="#" class="deliverables editable" id="deliverables" data-type="textarea" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.deliverables %></a>
     </td>
+    <td><%= action_item.created_by_user.name %></td>
     <td>
       <% action_item.users.each do |user| %>
         <div style="white-space: nowrap;"><%= user.name %></div>

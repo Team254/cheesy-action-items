@@ -147,7 +147,7 @@ module CheesyActionItems
       halt(400, "Missing mentors.") if params[:mentor].nil?
       action_item = ActionItem.create(:title => params[:title], :deliverables => params[:deliverables],
                                       :start_date => Time.now, :due_date => params[:due_date],
-                                      :mentor => params[:mentor])
+                                      :mentor => params[:mentor], :created_by_user_id => @user.id)
       leaders = params[:leaders].split(",").each do |user_id|
         action_item.add_user(User[user_id])
       end

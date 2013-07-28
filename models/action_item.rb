@@ -1,6 +1,7 @@
 
 class ActionItem < Sequel::Model
   many_to_many :users
+  many_to_one :created_by_user, :class => :User, :key => :created_by_user_id
 
   def before_save
     unless completion_date.nil?
