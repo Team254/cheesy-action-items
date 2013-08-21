@@ -15,7 +15,7 @@
     </div>
   </div>
   <%= erb :action_item_list,
-          :locals => { :action_items => ActionItem.where(:completion_date => nil).order(:start_date) } %>
+          :locals => { :action_items => ActionItem.where(:completion_date => nil).order(:id) } %>
 </div>
 
 <%= erb :footer %>
