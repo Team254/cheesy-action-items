@@ -2,7 +2,6 @@
 <tr>
   <th>Title</th>
   <th>Deliverables / Definition of "Done"</th>
-  <th>Created By</th>
   <th>Leader(s)</th>
   <th>Mentor</th>
   <th>Created</th>
@@ -10,6 +9,7 @@
   <th>Completed</th>
   <th>Result</th>
   <th>Current Grade</th>
+  <th>Created By</th>
   <th>Edit</th>
 </tr>
 <% action_items.each do |action_item| %>
@@ -20,7 +20,6 @@
     <td>
       <a href="#" class="deliverables editable" id="deliverables" data-type="textarea" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.deliverables %></a>
     </td>
-    <td><%= action_item.created_by_user.name %></td>
     <td>
       <% action_item.users.each do |user| %>
         <div style="white-space: nowrap;"><%= user.name %></div>
@@ -49,6 +48,7 @@
       </a>
     </td>
     <td><%= (action_item.grade || action_item.current_grade).round(3) %></td>
+    <td><%= action_item.created_by_user.name %></td>
     <td>
       <span style="white-space: nowrap;">
         <a href="/action_items/<%= action_item.id %>/edit" class="btn btn-primary btn-small">
