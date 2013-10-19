@@ -24,7 +24,11 @@ module CheesyActionItems
         session[:user_id] = nil
       end
 
-      @user = User[session[:user_id]]
+      if defined?(DEVELOPMENT)
+        @user = User[4]
+      else
+        @user = User[session[:user_id]]
+      end
       authenticate! unless ["/login"].include?(request.path)
     end
 
@@ -66,6 +70,11 @@ module CheesyActionItems
 
     get "/action_items/open" do
       erb :open_action_items
+    end
+
+    get "/action_items/open/partial" do
+      erb :action_item_list,
+          :locals => { :action_items => ActionItem.where(:completion_date => nil).order(:id) }
     end
 
     get "/action_items/completed" do

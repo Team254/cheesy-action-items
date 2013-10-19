@@ -8,3 +8,4 @@ DB_PASSWORD = "correcthorsebatterystaple"
 DB_DATABASE = "cheesy_action_items"
 WORDPRESS_AUTH_URL = "http://www.team254.com/auth/"
 BASE_ADDRESS = "http://action-items.team254.com:9003"
+DEVELOPMENT = true

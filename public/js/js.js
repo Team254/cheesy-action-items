@@ -85,3 +85,9 @@ $(function() {
     $("#due-date").val(year + "-" + month + "-" + day);
   });
 });
+
+function reloadOpenActionItems() {
+  $.get( "/action_items/open/partial", function(html) {
+    $("#action-item-list").html(html);
+  });
+}

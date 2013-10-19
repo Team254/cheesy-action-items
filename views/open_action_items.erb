@@ -14,8 +14,12 @@
       </a>
     </div>
   </div>
-  <%= erb :action_item_list,
-          :locals => { :action_items => ActionItem.where(:completion_date => nil).order(:id) } %>
+  <div id="action-item-list">
+    <%= erb :action_item_list,
+            :locals => { :action_items => ActionItem.where(:completion_date => nil).order(:id) } %>
+  </div>
 </div>
-
+<script>
+  setInterval(function() { reloadOpenActionItems(); }, 10000);
+</script>
 <%= erb :footer %>
