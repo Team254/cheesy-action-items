@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    editEnabled = false;
     $.fn.editable.defaults.mode = "popup";
     $(".editable").editable({
       disabled: true,
@@ -7,6 +8,7 @@ $(document).ready(function() {
 });
 
 $('#toggle-editing').click(function(e) {
+    editEnabled = !editEnabled;
     $(".editable").editable("toggleDisabled");
 });
 
@@ -87,7 +89,15 @@ $(function() {
 });
 
 function reloadOpenActionItems() {
+  if (editEnabled) {
+    // Don't reload while inline editing is in progress, to avoid messing things up.
+    return;
+  }
   $.get( "/action_items/open/partial", function(html) {
     $("#action-item-list").html(html);
+    $(".editable").editable({
+      disabled: true,
+      placement: "bottom"
+    });
   });
 }
