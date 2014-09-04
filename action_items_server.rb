@@ -15,7 +15,7 @@ module CheesyActionItems
   class Server < Sinatra::Base
     include WordpressAuthentication
 
-    set :sessions => true
+    use Rack::Session::Cookie, :key => "rack.session"
 
     # Enforce authentication for all routes except login.
     before do
@@ -127,7 +127,7 @@ module CheesyActionItems
 
     get "/action_items/:id/delete" do
       @action_item = ActionItem[params[:id]]
-      halt(400, "Invalid action item,") if @action_item.nil?
+      halt(400, "Invalid action item.") if @action_item.nil?
       erb :delete_action_item
     end
 
