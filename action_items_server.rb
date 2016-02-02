@@ -7,7 +7,7 @@ require "pathological"
 require "sinatra/base"
 require "time"
 
-require "config/environment"
+require "config"
 require "models"
 require "wordpress_authentication"
 
@@ -59,7 +59,7 @@ module CheesyActionItems
         session[:user_id] = user.id
         redirect @redirect
       else
-        redirect_path = URI.encode("#{BASE_ADDRESS}/login?redirect=#{@redirect}")
+        redirect_path = URI.encode("#{Config.base_address}/login?redirect=#{@redirect}")
         redirect "http://www.team254.com/wp-login.php?redirect_to=#{redirect_path}"
       end
     end

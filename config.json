@@ -1,0 +1,15 @@
+{
+  "global": {
+    "db_host": "localhost",
+    "db_user": "team254",
+    "db_database": "cheesy_action_items",
+    "port": 9003,
+    "base_address": "https://action-items.team254.com"
+    },
+  "dev": {
+    "db_password": "correcthorsebatterystaple"
+  },
+  "prod": {
+    "db_password": "Encrypted:0iYLP6HuJ7qY1/BtUYAQ+Q==\n"
+  }
+}

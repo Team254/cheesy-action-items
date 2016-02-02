@@ -11,5 +11,5 @@ require "thin"
 Daemons.run_proc("action_items_server", :monitor => true) do
   require "action_items_server"
 
-  Thin::Server.start("0.0.0.0", PORT, CheesyActionItems::Server)
+  Thin::Server.start("0.0.0.0", Config.port, CheesyActionItems::Server)
 end
