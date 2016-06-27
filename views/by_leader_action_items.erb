@@ -1,7 +1,7 @@
 <%= erb :header %>
 
 <div class="content">
-  <% User.all.select { |user| user.is_leader? }.each do |leader| %>
+  <% User.all.each do |leader| %>
     <div class="row">
       <div class="span6">
         <h2><%= leader.name %></h2>

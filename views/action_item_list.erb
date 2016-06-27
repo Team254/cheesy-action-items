@@ -35,7 +35,7 @@
       <a href="#" class="editable" id="due_date" data-type="date" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.due_date ? action_item.due_date.strftime("%Y-%m-%d") : "" %></a>
     </td>
     <td style="white-space: nowrap;">
-      <% if @user.is_mentor? %>
+      <% if @user.member.has_permission?("ACTION_ITEMS_EDIT") %>
         <a href="#" class="editable" id="completion_date" data-type="date" data-pk="<%= action_item.id %>" data-url="/api/edit"><%= action_item.completion_date ? action_item.completion_date.strftime("%Y-%m-%d") : "" %></a>
       <% else %>
         <%= action_item.completion_date ? action_item.completion_date.strftime("%Y-%m-%d") : "" %>

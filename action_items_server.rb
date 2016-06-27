@@ -3,65 +3,35 @@
 #
 # The main class of the action items web server.
 
+require "cheesy-common"
 require "pathological"
 require "sinatra/base"
 require "time"
 
-require "config"
 require "models"
-require "wordpress_authentication"
 
 module CheesyActionItems
   class Server < Sinatra::Base
-    include WordpressAuthentication
+    use Rack::Session::Cookie, :key => "rack.session", :expire_after => 3600
 
-    use Rack::Session::Cookie, :key => "rack.session"
-
-    # Enforce authentication for all routes except login.
+    # Enforce authentication for all routes.
     before do
-      unless wordpress_cookie
-        # Log the user out if not logged into Wordpress but still has an active session here.
-        session[:user_id] = nil
-      end
-
-      if defined?(DEVELOPMENT)
-        @user = User[4]
-      else
-        @user = User[session[:user_id]]
-      end
-      authenticate! unless ["/login"].include?(request.path)
-    end
-
-    def authenticate!
-      redirect "/login?redirect=#{request.path}" if @user.nil?
-    end
-
-    get "/login" do
-      @redirect = params[:redirect] || "/"
-
-      # Authenticate against Wordpress.
-      wordpress_user_info = get_wordpress_user_info
-      if wordpress_user_info
-        # Only allow leaders and mentors past this point.
-        unless wordpress_user_info["mentor"] == 1 || wordpress_user_info["leader"] == 1
-          halt(403, "Error: must be a leader or mentor.")
-        end
-
-        wordpress_user_info.delete("signature")  # MySQL can't store the Unicode properly.
-        user = User[wordpress_user_info["id"]]
-        unless user
-          # Create a new record in the local DB for the user to cache the Wordpress JSON.
-          user = User.create(:id => wordpress_user_info["id"], :wordpress_json => wordpress_user_info.to_json)
+      member = session[:member]
+      if member.nil?
+        member = CheesyCommon::Auth.get_user(request)
+        if member.nil?
+          redirect "#{CheesyCommon::Config.members_url}?site=action-items&path=#{request.path}"
         else
-          # Update the cache of the Wordpress JSON on each login in case it has changed.
-          user.update(:wordpress_json => wordpress_user_info.to_json)
+          session[:member] = member
         end
-        session[:user_id] = user.id
-        redirect @redirect
-      else
-        redirect_path = URI.encode("#{Config.base_address}/login?redirect=#{@redirect}")
-        redirect "http://www.team254.com/wp-login.php?redirect_to=#{redirect_path}"
       end
+
+      # Create or get the app-specific user model.
+      @user = User[member.id]
+      unless @user
+        @user = User.create(:id => member.id, :name => member.name_display)
+      end
+      @user.member = member
     end
 
     get "/" do
@@ -100,7 +70,7 @@ module CheesyActionItems
       @action_item.deliverables = params[:deliverables] if params[:deliverables]
       @action_item.start_date = params[:start_date] if params[:start_date]
       @action_item.due_date = params[:due_date] if params[:due_date]
-      if params[:completion_date] && @user.is_mentor?
+      if params[:completion_date] && @user.member.has_permission?("ACTION_ITEMS_EDIT")
         @action_item.completion_date = params[:completion_date]
       end
       @action_item.grade = params[:grade] if params[:grade]
@@ -168,7 +138,7 @@ module CheesyActionItems
     end
 
     get "/log" do
-      halt(400, "Mentors only.") unless @user.is_mentor?
+      halt(400, "Mentors only.") unless @user.member.has_permission?("ACTION_ITEMS_EDIT")
       erb :log
     end
 
@@ -180,7 +150,7 @@ module CheesyActionItems
     post "/api/edit" do
       # TODO: param checking, throw a 400
       # TODO: prettier client response upon success
-      if params[:name] == "completion_date" && !@user.is_mentor?
+      if params[:name] == "completion_date" && !@user.member.has_permission?("ACTION_ITEMS_EDIT")
         halt(400, "Only mentors can close an action item.")
       end
       ActionItem.where(:id => params[:pk]).update(params[:name] => params[:value])

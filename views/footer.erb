@@ -8,7 +8,7 @@
       var allLeaderIds = [];
       var leaderIds = {};
       var leaderNames = {};
-      <% User.all.select { |user| user.is_leader? }.each do |user| %>
+      <% User.all.each do |user| %>
         leaders.push("<%= user.name %>");
         allLeaderIds.push(<%= user.id %>);
         leaderIds["<%= user.name %>"] = <%= user.id %>;

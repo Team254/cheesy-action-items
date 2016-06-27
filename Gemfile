@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "aescrypt"
+gem "cheesy-common", :git => "https://github.com/Team254/cheesy-common.git"
 gem "daemons"
 gem "httparty"
 gem "mysql2"

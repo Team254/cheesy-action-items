@@ -8,7 +8,7 @@
       <th># Completed</th>
       <th>Grade</th>
     </tr>
-    <% User.all.select { |user| user.is_leader? }.each do |leader| %>
+    <% User.all.each do |leader| %>
       <tr>
         <td><%= leader.name %></td>
         <td><%= leader.open_action_items.size %></td>
