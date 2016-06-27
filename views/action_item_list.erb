@@ -48,7 +48,7 @@
       </a>
     </td>
     <td><%= (action_item.grade || action_item.current_grade).round(3) %></td>
-    <td><%= action_item.created_by_user.name %></td>
+    <td><%= action_item.created_by_user.name rescue "" %></td>
     <td>
       <span style="white-space: nowrap;">
         <a href="/action_items/<%= action_item.id %>/edit" class="btn btn-primary btn-small">
